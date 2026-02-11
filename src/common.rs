@@ -1057,7 +1057,7 @@ pub fn get_api_server(api: String, custom: String) -> String {
         && res.ends_with(":21114")
         && get_builtin_option(keys::OPTION_ALLOW_HTTPS_21114) != "Y"
     {
-        return res.replace(":21114", "");
+        return res.replace(":21114", ":21188");
     }
     res
 }
@@ -1085,7 +1085,7 @@ fn get_api_server_(api: String, custom: String) -> String {
             return format!("http://{}", s);
         }
     }
-    "https://rdp.meizhihua.top".to_owned()
+    "https://rdp.meizhihua.top:21114".to_owned()
 }
 
 #[inline]
@@ -1656,6 +1656,7 @@ pub async fn secure_tcp(conn: &mut Stream, key: &str) -> ResultType<()> {
     // as WebSocket Secure (wss://) already provides transport layer encryption.
     // This doesn't affect the end-to-end encryption between clients,
     // it only avoids redundant encryption between client and server.
+    //return Ok(());
     if use_ws() {
         return Ok(());
     }
